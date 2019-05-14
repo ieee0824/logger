@@ -18,10 +18,16 @@ func (de *defaultEnvGetter) Level() string {
 	return "LOG_LEVEL"
 }
 
-var envNames interface {
+type EnvNameGetter interface {
 	Env() string
 	Level() string
-} = &defaultEnvGetter{}
+}
+
+var envNames EnvNameGetter = &defaultEnvGetter{}
+
+func SetEnvNameHandler(h EnvNameGetter) {
+	envNames = h
+}
 
 type EnvLevel int
 
